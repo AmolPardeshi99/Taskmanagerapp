@@ -23,7 +23,6 @@
             android:id="@+id/tvTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:text="Title"
@@ -35,11 +34,9 @@
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvTaskTitle"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="3dp"
-            android:text="desc"
+            android:text="Description"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 
@@ -51,25 +48,25 @@
 
             <TextView
                 android:id="@+id/editTv"
-                android:drawableTop="@android:drawable/ic_menu_edit"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_margin="4dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Add task" />
+                android:text="Edit task"
+                app:drawableTopCompat="@android:drawable/ic_menu_edit" />
 
             <TextView
                 android:id="@+id/deleteTv"
-                android:drawableTop="@android:drawable/ic_menu_delete"
                 android:layout_width="0dp"
                 android:layout_margin="4dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Add task" />
+                android:text="Remove task"
+                app:drawableTopCompat="@android:drawable/ic_menu_delete" />
 
         </LinearLayout>
 
