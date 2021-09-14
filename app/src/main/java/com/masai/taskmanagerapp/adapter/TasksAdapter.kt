@@ -11,7 +11,11 @@ import com.masai.taskmanagerapp.R
 import com.masai.taskmanagerapp.database.onTaskItemClicked
 import com.masai.taskmanagerapp.models.Task
 
-class TasksAdapter(val context: Context, val tasksList: MutableList<Task>, var listener : onTaskItemClicked ) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
+class TasksAdapter(
+    val context: Context,
+    val tasksList: MutableList<Task>,
+    var listener: onTaskItemClicked
+) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -24,11 +28,11 @@ class TasksAdapter(val context: Context, val tasksList: MutableList<Task>, var l
         holder.title.text = task.title
         holder.desc.text = task.desc
 
-        holder.delete.setOnClickListener{
+        holder.delete.setOnClickListener {
             listener.onDeleteClicked(task)
         }
         holder.editTv.setOnClickListener {
-          listener.onEditClicked(task)
+            listener.onEditClicked(task)
         }
     }
 

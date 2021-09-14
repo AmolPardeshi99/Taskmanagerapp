@@ -50,4 +50,9 @@ dependencies {
 
     //Anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    //Room
+    implementation 'androidx.room:room-ktx:2.1.0'
+    kapt 'androidx.room:room-compiler:2.1.0'
+
 }
