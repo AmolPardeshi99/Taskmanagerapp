@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), onTaskItemClicked {
             }
         }
 
+
         taskAdapter = TasksAdapter(this, tasksList, this)
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = taskAdapter
