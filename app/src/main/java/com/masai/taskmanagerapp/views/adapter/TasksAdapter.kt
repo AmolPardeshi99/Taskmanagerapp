@@ -1,15 +1,13 @@
-package com.masai.taskmanagerapp.adapter
+package com.masai.taskmanagerapp.views.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.masai.taskmanagerapp.R
-import com.masai.taskmanagerapp.database.onTaskItemClicked
-import com.masai.taskmanagerapp.models.Task
+import com.masai.taskmanagerapp.models.local.Task
 
 class TasksAdapter(
     val context: Context,
@@ -18,9 +16,7 @@ class TasksAdapter(
 ) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val inflater = LayoutInflater.from(context)
-        val view1: View = inflater.inflate(R.layout.task_item_row, parent, false)
-        return TaskViewHolder(view1)
+        return TaskViewHolder(LayoutInflater.from(context).inflate(R.layout.task_item_row,parent,false))
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
