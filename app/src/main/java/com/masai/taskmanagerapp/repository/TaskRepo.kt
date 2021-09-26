@@ -15,14 +15,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class TaskRepo(private val taskDAO: TaskappDAO) {
+class TaskRepo @Inject constructor(val taskDAO: TaskappDAO) {
 
-
-    private val api: TasksAPI = Network.getRetrofit().create(
-        TasksAPI::class.java)
+    private val api: TasksAPI = Network.getRetrofit().create(TasksAPI::class.java)
     private val responseHandler = ResponseHandler()
-    private val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGE0YmI3OTAzMjdlN2MwNmE2MTk1ODYiLCJpYXQiOjE2MzIxMzg2ODR9.cTxpYQrTfvramIOSPih6b1hJO_x1G-V2GmaRnTYSjU0"
+    private val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiNjM4Y2YwNDg1NDBiNWMxNDkyMDAiLCJpYXQiOjE2MzI0ODIzMTl9.J7d5C6Dky6A6yjGDCEX5vFYycinza7XpzIledFhHMhk"
+    //private val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGE0YmI3OTAzMjdlN2MwNmE2MTk1ODYiLCJpYXQiOjE2MzIxMzg2ODR9.cTxpYQrTfvramIOSPih6b1hJO_x1G-V2GmaRnTYSjU0"
 
     suspend fun login(loginRequestModel: LoginRequestModel): Resource<LoginResponse> {
 

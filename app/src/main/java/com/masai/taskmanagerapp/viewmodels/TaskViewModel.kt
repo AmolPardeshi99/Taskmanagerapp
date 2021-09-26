@@ -9,9 +9,12 @@ import com.masai.taskmanagerapp.models.remote.requests.CreateTaskRequest
 import com.masai.taskmanagerapp.models.remote.requests.LoginRequestModel
 import com.masai.taskmanagerapp.models.remote.responses.LoginResponse
 import com.masai.taskmanagerapp.repository.TaskRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class TaskViewModel(val repo: TaskRepo): ViewModel() {
+@HiltViewModel
+class TaskViewModel @Inject constructor(val repo: TaskRepo): ViewModel() {
 
     fun userLogin(loginRequestModel: LoginRequestModel) : LiveData<Resource<LoginResponse>>{
 
@@ -36,6 +39,7 @@ class TaskViewModel(val repo: TaskRepo): ViewModel() {
     fun addTask(task: Task){
         repo.addTaskToRoom(task)
     }
+
 
     fun getTasksFromDB(): LiveData<List<Task>> {
         return repo.getAllTask()

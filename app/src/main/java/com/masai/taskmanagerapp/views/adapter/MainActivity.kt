@@ -1,6 +1,7 @@
 package com.masai.taskmanagerapp.views.adapter
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,29 +15,31 @@ import com.masai.taskmanagerapp.models.remote.requests.LoginRequestModel
 import com.masai.taskmanagerapp.repository.TaskRepo
 import com.masai.taskmanagerapp.viewmodels.TaskViewModel
 import com.masai.taskmanagerapp.viewmodels.TaskViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), onTaskItemClicked {
 
     lateinit var taskAdapter: TasksAdapter
     private var tasksList = mutableListOf<Task>()
 
-    lateinit var viewModel: TaskViewModel
-    lateinit var roomDb: TaskRoomDataBase
-    lateinit var taskDao: TaskappDAO
+    val viewModel: TaskViewModel by viewModels()
+     lateinit var roomDb: TaskRoomDataBase
+     lateinit var taskDao: TaskappDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        roomDb = TaskRoomDataBase.getDatabaseObject(this)
-        taskDao = roomDb.getTaskDAO()
-
-        val repo = TaskRepo(taskDao)
-        val viewModelFactory = TaskViewModelFactory(repo)
-        //viewModel = ViewModelProviders.of(this).get(TasksAdapter.TaskViewHolder::class.java)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel::class.java)
+//        roomDb = TaskRoomDataBase.getDatabaseObject(this)
+//        taskDao = roomDb.getTaskDAO()
+//
+//        val repo = TaskRepo(taskDao)
+//        val viewModelFactory = TaskViewModelFactory(repo)
+//        //viewModel = ViewModelProviders.of(this).get(TasksAdapter.TaskViewHolder::class.java)
+//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel::class.java)
 
         val loginRequestModel = LoginRequestModel(
             userName = "pradeep1706108@gmail.com",
@@ -66,8 +69,6 @@ class MainActivity : AppCompatActivity(), onTaskItemClicked {
 
 
         fab.setOnClickListener { view ->
-//            val newtask = Task("Dummy Title2", "Dummy Desc2")
-//            viewModel.addTask(newtask)
 
             val createTaskRequest = CreateTaskRequest(
                 description = "This is Description",
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity(), onTaskItemClicked {
                 title = "Title"
             )
             viewModel.createNewTask(createTaskRequest)
-
             viewModel.getTasksFromAPI()
         }
 
@@ -84,14 +84,12 @@ class MainActivity : AppCompatActivity(), onTaskItemClicked {
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = taskAdapter
 
-        viewModel.getTasksFromDB().observe(this, Observer {
+        viewModel.getTasksFromDB().observe(this, {
             tasksList.clear()
             tasksList.addAll(it)
             tasksList.reverse()
             taskAdapter.notifyDataSetChanged()
         })
-
-
     }
 
     override fun onEditClicked(task: Task) {
@@ -109,12 +107,3 @@ class MainActivity : AppCompatActivity(), onTaskItemClicked {
 
 }
 
-
-//   fun updateUI() {
-//        val latestTask = dbHandler.getTaskData()
-//        tasksList.clear()
-//        tasksList.addAll(latestTask)
-//        taskAdapter.notifyDataSetChanged()
-
-//            Snackbar.make(view, "Hello", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
